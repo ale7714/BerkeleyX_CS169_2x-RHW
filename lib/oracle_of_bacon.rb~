@@ -20,7 +20,7 @@ class OracleOfBacon
   validate :from_does_not_equal_to
 
   def from_does_not_equal_to
-     @errors.add :from, 'From cannot be the same as To' if @from == @to 
+     @errors.add 'From cannot be the same as To' if @from == @to 
   end
 
   def initialize(api_key='')
