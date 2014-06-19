@@ -45,8 +45,7 @@ class OracleOfBacon
   end
 
   def make_uri_from_arguments
-    # your code here: set the @uri attribute to properly-escaped URI
-    #   constructed from the @from, @to, @api_key arguments
+    @uri = "http://oracleofbacon.org/p=#{@api_key}&a=#{@from}&b=#{@to}"
   end
       
   class Response
@@ -66,9 +65,9 @@ class OracleOfBacon
         parse_spellcheck
       elsif @doc.xpath('/link').any?
         parse_graph
-      # your code here: 'elsif' clauses to handle other responses
-      # for responses not matching the 3 basic types, the Response
-      # object should have type 'unknown' and data 'unknown response'         
+      else 
+        @type = :unknown
+        @data = "unknown response"        
       end
     end
     def parse_graph
