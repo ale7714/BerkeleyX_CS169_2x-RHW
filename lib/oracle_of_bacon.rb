@@ -37,11 +37,9 @@ class OracleOfBacon
     rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError,
       Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError,
       Net::ProtocolError => e
-      # convert all of these into a generic OracleOfBacon::NetworkError,
-      #  but keep the original error message
-      # your code here
+      raise NetworkError
     end
-    # your code here: create the OracleOfBacon::Response object
+    @response = Response.new(xml)
   end
 
   def make_uri_from_arguments
@@ -50,7 +48,6 @@ class OracleOfBacon
       
   class Response
     attr_reader :type, :data
-    # create a Response object from a string of XML markup.
     def initialize(xml)
       @doc = Nokogiri::XML(xml)
       parse_response
